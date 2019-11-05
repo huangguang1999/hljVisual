@@ -1,0 +1,10 @@
+// 内部样式文件，配置全局样式变量
+$theme-color: blue;
+
+//定义布局函数
+@mixin Flex ($AT, $JC, $FD) {
+  display: flex;
+  align-items: $AT;
+  justify-content: $JC;
+  flex-direction: $FD;
+}
