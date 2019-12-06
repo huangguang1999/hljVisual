@@ -11,7 +11,6 @@ import store from './store'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 Vue.prototype.$ajax = axios
-
 Vue.prototype.$echarts = echarts
 Vue.use(ElementUI)
 

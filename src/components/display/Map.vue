@@ -8,12 +8,12 @@
     <div id="show">
       <div id="bg"></div>
       <span id="close_show">×</span>
-      <div id="enlarge" style="width:100%;height:80%"></div>
+      <div id="enlarge" style="width:100%;height:100%"></div>
     </div>
   </div>
 </template>
 
-<script type="text/ecmascript-6">　　 // 在之前已经单独引入了echarts文件　　 // 在此只需引入需要的地区的json文件
+<script type="text/ecmascript-6"> // 在之前已经单独引入了echarts文件,在此只需引入需要的地区的json文件
 import echarts from 'echarts'
 import hlj from 'echarts/map/json/province/heilongjiang'
 export default {
@@ -28,58 +28,58 @@ export default {
     }
   },
   methods: {
-    drawmap() {
-      let chartMap = document.getElementById('chartMap');
-      let smap = document.getElementById('s-map');　　　　　　　　　 // 动态修改图表的宽高，达到自适应的效果　
+    drawmap () {
+      let chartMap = document.getElementById('chartMap')
+      let smap = document.getElementById('s-map')// 动态修改图表的宽高，达到自适应的效果
       var resizeWorldMapContainer = function () {
-        chartMap.style.width  = smap.clientWidth +'px';
-        chartMap.style.height = smap.clientHeight + 'px';
-      };
-      resizeWorldMapContainer();
+        chartMap.style.width = smap.clientWidth + 'px'
+        chartMap.style.height = smap.clientHeight + 'px'
+      }
+      resizeWorldMapContainer()
       // 注册可用的地图
-      echarts.registerMap('heilongjiang',hlj);
-      let myChart = echarts.init(chartMap);
+      echarts.registerMap('heilongjiang', hlj)
+      let myChart = echarts.init(chartMap)
       myChart.setOption({
         roam: false,
         toolbox: {
-          show : true,
-          iconStyle :{
+          show: true,
+          iconStyle: {
             borderColor: '#F0F0F0'
           },
-          feature : {
-            mark : {                                 // '辅助线开关'
+          feature: {
+            mark: { // '辅助线开关'
               show: true
             },
-            restore : {                             //配置项还原。
-              show: true,                         //是否显示该工具。
-              title:"还原",
+            restore: { // 配置项还原。
+              show: true, // 是否显示该工具。
+              title: '还原'
             },
-            saveAsImage : {show: true},
-            myEnlarge:{//放大按钮，自定义按钮必须以my开头
-              show:true,
-              title:'放大',
-              icon:'image:///static/img/enlarge.png',//按钮图片的位置//按钮图片的位置
-              onclick: function (){
-                var mask=document.getElementById("mask");
-                var show=document.getElementById("show");
-                mask.style.display="block";
-                show.style.display="block";
-                var imgChart = echarts.init(document.getElementById('enlarge'));
-                imgChart.clear();
-                //myChart.getOption()获取当前图形的配置项option
-                imgChart.setOption(myChart.getOption());
+            saveAsImage: {show: true},
+            myEnlarge: {// 放大按钮，自定义按钮必须以my开头
+              show: true,
+              title: '放大',
+              icon: 'image:///static/img/enlarge.png', // 按钮图片的位置//按钮图片的位置
+              onclick: function () {
+                var mask = document.getElementById('mask')
+                var show = document.getElementById('show')
+                mask.style.display = 'block'
+                show.style.display = 'block'
+                var imgChart = echarts.init(document.getElementById('enlarge'))
+                imgChart.clear()
+                // myChart.getOption()获取当前图形的配置项option
+                imgChart.setOption(myChart.getOption())
 
-                var close_show=document.getElementById("close_show");
-                close_show.onclick=()=>{//关闭按钮触发
-                  imgChart.clear();
-                  mask.style.display="none";
-                  show.style.display="none";
-                };
+                var close_show = document.getElementById('close_show')
+                close_show.onclick = () => { // 关闭按钮触发
+                  imgChart.clear()
+                  mask.style.display = 'none'
+                  show.style.display = 'none'
+                }
               }
             }
           },
           borderColor: '#00FFFF',
-          padding: [35,35,35,35],
+          padding: [35, 35, 35, 35]
         },
         series: [
           {
@@ -89,21 +89,21 @@ export default {
             mapType: '黑龙江',
             roam: true,
             zoom: 1.2,
-            itemStyle:{
-              normal:{
+            itemStyle: {
+              normal: {
                 areaColor: '#0080ff',
-                label:{
-                  show:true,
+                label: {
+                  show: true,
                   textStyle: {
                     color: '#aaaaa',
                     fontSize: this.font
                   }
-                },
+                }
               },
-              emphasis:{
+              emphasis: {
                 areaColor: '#a6ffff',
-                label:{
-                  show:true,
+                label: {
+                  show: true,
                   textStyle: {
                     color: '#398def',
                     fontSize: this.font
@@ -112,16 +112,16 @@ export default {
 
               }
             },
-            data:[
-              {name: '黑龙江',value: Math.round(Math.random()*1000)}
+            data: [
+              {name: '黑龙江', value: Math.round(Math.random() * 1000)}
             ]
           }
         ]
-      });
+      })
 
-      window.addEventListener("resize", function(){
-        resizeWorldMapContainer();
-        myChart.resize();
+      window.addEventListener('resize', function () {
+        resizeWorldMapContainer()
+        myChart.resize()
       })
     }
   },

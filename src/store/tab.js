@@ -4,7 +4,7 @@ export default {
     currentMenu: null
   },
   mutations: {
-    selectMenu(state, val) {
+    selectMenu (state, val) {
       {
         state.currentMenu = val
       }

@@ -12,117 +12,69 @@
     <div class="content">
       <div class="contentElement1">
         <div class="contentElement1_1">
-          <div style="display:flex;flex-direction: column;width:100%;height: 100%;overflow: hidden">
-            <div style="width:100%;height:20px;color:white;font-size: 18px;text-align:center;overflow: hidden">{{eTitle}}</div>
-            <div style="width:10%;height:5%;margin-left: 80%">
-              <LeftDrawerMenu :created="created"></LeftDrawerMenu>
-            </div>
-            <div style="width:90%;height: 80%">
-              <echarts :chartData="echartData.user" style="width:120%;height: 190px;margin-left: -5%"></echarts>
-            </div>
-          </div>
+          <DialogForm v-show="buttonShow1" @renderInPage="renderInPage"></DialogForm>
+          <echartsVis :chartData="echartData.user" v-show="echartShow1" style="width:100%;height: 100%;"></echartsVis>
         </div>
         <div class="contentElement1_2">
-          <div style="display:flex;flex-direction: column;width:100%;height: 100%;overflow: hidden">
-            <div style="width:100%;height:20px;color:white;font-size: 18px;text-align:center;overflow: hidden">{{eTitle2}}</div>
-            <div style="width:10%;height:5%;margin-left: 80%">
-              <LeftDrawerMenu2 :created="created"></LeftDrawerMenu2>
-            </div>
-            <div style="width:90%;height: 80%">
-              <echarts :chartData="echartData2.user" style="width:120%;height: 190px;margin-left: -5%"></echarts>
-            </div>
-          </div>
+          <DialogForm2 v-show="buttonShow2" @renderInPage2="renderInPage2"></DialogForm2>
+          <echartsVis :chartData="echartData2.user" v-show="echartShow2" style="width:100%;height: 100%;"></echartsVis>
         </div>
       </div>
       <div class="contentElement2">
         <Map></Map>
       </div>
       <div class="contentElement3">
-        <div style="display:flex;flex-direction: column;width:100%;height: 100%;overflow: hidden">
-          <div style="width:100%;height:20px;color:white;font-size: 18px;text-align:center;overflow: hidden">{{eTitle3}}</div>
-          <div style="width:10%;height:5%;margin-left: 80%">
-            <LeftDrawerMenu3 :created="created"></LeftDrawerMenu3>
-          </div>
-          <div style="width:90%;height: 80%">
-            <echarts :chartData="echartData3.user" style="width:120%;height: 380px;margin-left: -15%"></echarts>
-          </div>
-        </div>
+          <DialogForm3 v-show="buttonShow3" @renderInPage3="renderInPage3"></DialogForm3>
+          <echartsVis :chartData="echartData3.user" v-show="echartShow3" style="width:100%;height: 100%;"></echartsVis>
       </div>
     </div>
     <div class="buttom">
       <div class="buttomElement1">
-        <div style="display:flex;flex-direction: column;width:100%;height: 100%;overflow: hidden">
-          <div style="width:100%;height:20px;color:white;font-size: 18px;text-align:center;overflow: hidden">{{eTitle4}}</div>
-          <div style="width:10%;height:5%;margin-left: 80%">
-            <LeftDrawerMenu4 :created="created"></LeftDrawerMenu4>
-          </div>
-          <div style="width:90%;height: 80%">
-            <echarts :chartData="echartData4.user" style="width:100%;height: 250px;margin-left: 5%"></echarts>
-          </div>
-        </div>
+          <DialogForm4 v-show="buttonShow4" @renderInPage4="renderInPage4"></DialogForm4>
+          <echartsVis :chartData="echartData4.user" v-show="echartShow4" style="width:100%;height: 100%;"></echartsVis>
       </div>
       <div class="buttomElement2">
-        <div style="display:flex;flex-direction: column;width:100%;height: 100%;overflow: hidden">
-          <div style="width:100%;height:20px;color:white;font-size: 18px;text-align:center;overflow: hidden">{{eTitle5}}</div>
-          <div style="width:10%;height:5%;margin-left: 80%">
-            <LeftDrawerMenu5 :created="created"></LeftDrawerMenu5>
-          </div>
-          <div style="width:90%;height: 80%">
-            <echarts :chartData="echartData5.user" style="width:100%;height: 250px;margin-left: 5%"></echarts>
-          </div>
-        </div>
+          <DialogForm5 v-show="buttonShow5" @renderInPage5="renderInPage5"></DialogForm5>
+          <echartsVis :chartData="echartData5.user" v-show="echartShow5" style="width:100%;height: 100%;"></echartsVis>
       </div>
       <div class="buttomElement3">
-        <div style="display:flex;flex-direction: column;width:100%;height: 100%;overflow: hidden">
-          <div style="width:100%;height:20px;color:white;font-size: 18px;text-align:center;overflow: hidden">{{eTitle6}}</div>
-          <div style="width:10%;height:5%;margin-left: 80%">
-            <LeftDrawerMenu6 :created="created"></LeftDrawerMenu6>
-          </div>
-          <div style="width:90%;height: 80%">
-            <echarts :chartData="echartData6.user" style="width:100%;height: 250px;margin-left: 5%"></echarts>
-          </div>
-        </div>
+          <DialogForm6 v-show="buttonShow6" @renderInPage6="renderInPage6"></DialogForm6>
+          <echartsVis :chartData="echartData6.user" v-show="echartShow6" style="width:100%;height: 100%;"></echartsVis>
       </div>
       <div class="buttomElement4">
-        <div style="display:flex;flex-direction: column;width:100%;height: 100%;overflow: hidden">
-          <div style="width:100%;height:20px;color:white;font-size: 18px;text-align:center;overflow: hidden">{{eTitle7}}</div>
-          <div style="width:10%;height:5%;margin-left: 80%">
-            <LeftDrawerMenu7 :created="created"></LeftDrawerMenu7>
-          </div>
-          <div style="width:90%;height: 80%">
-            <echarts :chartData="echartData7.user" style="width:100%;height: 250px;margin-left: 5%"></echarts>
-          </div>
-        </div>
+          <DialogForm7 v-show="buttonShow7" @renderInPage7="renderInPage7"></DialogForm7>
+          <echartsVis :chartData="echartData7.user" v-show="echartShow7" style="width:100%;height: 100%;"></echartsVis>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import echarts from '../components/echarts/Echarts'
-import LeftDrawerMenu from '../components/display/LeftDrawerMenu'
-import LeftDrawerMenu2 from '../components/display/LeftDrawerMenu2'
-import LeftDrawerMenu3 from '../components/display/LeftDrawerMenu3'
-import LeftDrawerMenu4 from '../components/display/LeftDrawerMenu4'
-import LeftDrawerMenu5 from '../components/display/LeftDrawerMenu5'
-import LeftDrawerMenu6 from '../components/display/LeftDrawerMenu6'
-import LeftDrawerMenu7 from '../components/display/LeftDrawerMenu7'
 import Map from '../components/display/Map'
-import {renderDate} from '../components/common/js/renderDate'
+import echartsVis from '../components/echarts/EchartsVis'
+import DialogForm from '../components/display/DialogForm'
+import DialogForm2 from '../components/display/DialogForm2'
+import DialogForm3 from '../components/display/DialogForm3'
+import DialogForm4 from '../components/display/DialogForm4'
+import DialogForm5 from '../components/display/DialogForm5'
+import DialogForm6 from '../components/display/DialogForm6'
+import DialogForm7 from '../components/display/DialogForm7'
+import {renderData} from '../components/common/js/renderData'
 export default {
   components: {
-    echarts,
     Map,
-    LeftDrawerMenu,
-    LeftDrawerMenu2,
-    LeftDrawerMenu3,
-    LeftDrawerMenu4,
-    LeftDrawerMenu5,
-    LeftDrawerMenu6,
-    LeftDrawerMenu7
+    echartsVis,
+    DialogForm,
+    DialogForm2,
+    DialogForm3,
+    DialogForm4,
+    DialogForm5,
+    DialogForm6,
+    DialogForm7
   },
   data () {
     return {
+      // 第一个表格数据
       echartData: {
         legend: {
           textStyle: {
@@ -136,12 +88,21 @@ export default {
         user: {
           xData: [],
           lenged: [],
-          series: []
+          series: [],
+          title: {
+            text: ''
+          }
         },
         video: {
           series: []
         }
       },
+      // 刷新后的数据
+      resOption: [],
+      // 判断组件是否显示
+      echartShow1: false,
+      buttonShow1: true,
+      // 第二个表格数据
       echartData2: {
         legend: {
           textStyle: {
@@ -155,12 +116,21 @@ export default {
         user: {
           xData: [],
           lenged: [],
-          series: []
+          series: [],
+          title: {
+            text: ''
+          }
         },
         video: {
           series: []
         }
       },
+      // 刷新后的数据
+      resOption2: [],
+      // 判断组件是否显示
+      echartShow2: false,
+      buttonShow2: true,
+      // 第三个表格数据
       echartData3: {
         legend: {
           textStyle: {
@@ -174,12 +144,21 @@ export default {
         user: {
           xData: [],
           lenged: [],
-          series: []
+          series: [],
+          title: {
+            text: ''
+          }
         },
         video: {
           series: []
         }
       },
+      // 刷新后的数据
+      resOption3: [],
+      // 判断组件是否显示
+      echartShow3: false,
+      buttonShow3: true,
+      // 第四个表格数据
       echartData4: {
         legend: {
           textStyle: {
@@ -193,12 +172,21 @@ export default {
         user: {
           xData: [],
           lenged: [],
-          series: []
+          series: [],
+          title: {
+            text: ''
+          }
         },
         video: {
           series: []
         }
       },
+      // 刷新后的数据
+      resOption4: [],
+      // 判断组件是否显示
+      echartShow4: false,
+      buttonShow4: true,
+      // 第五个表格数据
       echartData5: {
         legend: {
           textStyle: {
@@ -212,12 +200,21 @@ export default {
         user: {
           xData: [],
           lenged: [],
-          series: []
+          series: [],
+          title: {
+            text: ''
+          }
         },
         video: {
           series: []
         }
       },
+      // 刷新后的数据
+      resOption5: [],
+      // 判断组件是否显示
+      echartShow5: false,
+      buttonShow5: true,
+      // 第六个表格数据
       echartData6: {
         legend: {
           textStyle: {
@@ -231,12 +228,21 @@ export default {
         user: {
           xData: [],
           lenged: [],
-          series: []
+          series: [],
+          title: {
+            text: ''
+          }
         },
         video: {
           series: []
         }
       },
+      // 刷新后的数据
+      resOption6: [],
+      // 判断组件是否显示
+      echartShow6: false,
+      buttonShow6: true,
+      // 第七个表格数据
       echartData7: {
         legend: {
           textStyle: {
@@ -250,754 +256,144 @@ export default {
         user: {
           xData: [],
           lenged: [],
-          series: []
+          series: [],
+          title: {
+            text: ''
+          }
         },
         video: {
           series: []
         }
       },
-      // 表格渲染数据（动态变化）
-      // 左中 第一个表格
-      eDate: [
-        {
-          城市: '哈尔滨',
-          网络基础设施就绪度: 83.5,
-          信息化发展环境: 94.51,
-          应用效益: 78.75,
-          产业信息化: 141.25,
-          发展指数: 92.94,
-          增长率: 16.41,
-          x: '哈尔滨',
-          y: 83.5,
-          z: 78.75
-        },
-        {
-          城市: '牡丹江',
-          网络基础设施就绪度: 90.31,
-          信息化发展环境: 110.32,
-          应用效益: 72.9,
-          产业信息化: 108.09,
-          发展指数: 91.75,
-          增长率: 39.81,
-          x: '牡丹江',
-          y: 90.31,
-          z: 72.9
-        },
-        {
-          城市: '绥化',
-          网络基础设施就绪度: 81.22,
-          信息化发展环境: 94.88,
-          应用效益: 74.24,
-          产业信息化: 59.69,
-          发展指数: 78.63,
-          增长率: 36.34,
-          x: '绥化',
-          y: 81.22,
-          z: 74.24
-        },
-        {
-          城市: '大庆',
-          网络基础设施就绪度: 73.33,
-          信息化发展环境: 106.61,
-          应用效益: 55.94,
-          产业信息化: 73.64,
-          发展指数: 74.81,
-          增长率: 35.04,
-          x: '大庆',
-          y: 73.33,
-          z: 55.94
-        },
-        {
-          城市: '佳木斯',
-          网络基础设施就绪度: 88.77,
-          信息化发展环境: 47.32,
-          应用效益: 68.39,
-          产业信息化: 84.78,
-          发展指数: 73.77,
-          增长率: 32.78,
-          x: '佳木斯',
-          y: 88.77,
-          z: 68.39
-        },
-        {
-          城市: '齐齐哈尔',
-          网络基础设施就绪度: 77.84,
-          信息化发展环境: 47.98,
-          应用效益: 56.55,
-          产业信息化: 86.03,
-          发展指数: 66.71,
-          增长率: 18.33,
-          x: '齐齐哈尔',
-          y: 77.84,
-          z: 56.55
-        }
-      ],
-      eXDate: '',
-      eTitle: '黑龙江省2015 - 2017网络基础设施就绪度',
-      // 左中 第二个表格
-      eDate2: [
-        {
-          城市: '哈尔滨',
-          网络基础设施就绪度: 83.5,
-          信息化发展环境: 94.51,
-          应用效益: 78.75,
-          产业信息化: 141.25,
-          发展指数: 92.94,
-          增长率: 16.41,
-          x: '哈尔滨',
-          y: 83.5,
-          z: 78.75
-        },
-        {
-          城市: '牡丹江',
-          网络基础设施就绪度: 90.31,
-          信息化发展环境: 110.32,
-          应用效益: 72.9,
-          产业信息化: 108.09,
-          发展指数: 91.75,
-          增长率: 39.81,
-          x: '牡丹江',
-          y: 90.31,
-          z: 72.9
-        },
-        {
-          城市: '绥化',
-          网络基础设施就绪度: 81.22,
-          信息化发展环境: 94.88,
-          应用效益: 74.24,
-          产业信息化: 59.69,
-          发展指数: 78.63,
-          增长率: 36.34,
-          x: '绥化',
-          y: 81.22,
-          z: 74.24
-        },
-        {
-          城市: '大庆',
-          网络基础设施就绪度: 73.33,
-          信息化发展环境: 106.61,
-          应用效益: 55.94,
-          产业信息化: 73.64,
-          发展指数: 74.81,
-          增长率: 35.04,
-          x: '大庆',
-          y: 73.33,
-          z: 55.94
-        },
-        {
-          城市: '佳木斯',
-          网络基础设施就绪度: 88.77,
-          信息化发展环境: 47.32,
-          应用效益: 68.39,
-          产业信息化: 84.78,
-          发展指数: 73.77,
-          增长率: 32.78,
-          x: '佳木斯',
-          y: 88.77,
-          z: 68.39
-        },
-        {
-          城市: '齐齐哈尔',
-          网络基础设施就绪度: 77.84,
-          信息化发展环境: 47.98,
-          应用效益: 56.55,
-          产业信息化: 86.03,
-          发展指数: 66.71,
-          增长率: 18.33,
-          x: '齐齐哈尔',
-          y: 77.84,
-          z: 56.55
-        }
-      ],
-      eXDate2: '',
-      eTitle2: '黑龙江省2015 - 2017信息化发展环境',
-      // 右中 第三个表格
-      eDate3: [
-        {
-          城市: '哈尔滨',
-          网络基础设施就绪度: 83.5,
-          信息化发展环境: 94.51,
-          应用效益: 78.75,
-          产业信息化: 141.25,
-          发展指数: 92.94,
-          增长率: 16.41,
-          x: '哈尔滨',
-          y: 83.5,
-          z: 78.75
-        },
-        {
-          城市: '牡丹江',
-          网络基础设施就绪度: 90.31,
-          信息化发展环境: 110.32,
-          应用效益: 72.9,
-          产业信息化: 108.09,
-          发展指数: 91.75,
-          增长率: 39.81,
-          x: '牡丹江',
-          y: 90.31,
-          z: 72.9
-        },
-        {
-          城市: '绥化',
-          网络基础设施就绪度: 81.22,
-          信息化发展环境: 94.88,
-          应用效益: 74.24,
-          产业信息化: 59.69,
-          发展指数: 78.63,
-          增长率: 36.34,
-          x: '绥化',
-          y: 81.22,
-          z: 74.24
-        },
-        {
-          城市: '大庆',
-          网络基础设施就绪度: 73.33,
-          信息化发展环境: 106.61,
-          应用效益: 55.94,
-          产业信息化: 73.64,
-          发展指数: 74.81,
-          增长率: 35.04,
-          x: '大庆',
-          y: 73.33,
-          z: 55.94
-        },
-        {
-          城市: '佳木斯',
-          网络基础设施就绪度: 88.77,
-          信息化发展环境: 47.32,
-          应用效益: 68.39,
-          产业信息化: 84.78,
-          发展指数: 73.77,
-          增长率: 32.78,
-          x: '佳木斯',
-          y: 88.77,
-          z: 68.39
-        },
-        {
-          城市: '齐齐哈尔',
-          网络基础设施就绪度: 77.84,
-          信息化发展环境: 47.98,
-          应用效益: 56.55,
-          产业信息化: 86.03,
-          发展指数: 66.71,
-          增长率: 18.33,
-          x: '齐齐哈尔',
-          y: 77.84,
-          z: 56.55
-        }
-      ],
-      eXDate3: '',
-      eTitle3: '黑龙江省2015 - 2017产业信息化',
-      // 右下 第四个表格
-      eDate4: [
-        {
-          城市: '哈尔滨',
-          网络基础设施就绪度: 83.5,
-          信息化发展环境: 94.51,
-          应用效益: 78.75,
-          产业信息化: 141.25,
-          发展指数: 92.94,
-          增长率: 16.41,
-          x: '哈尔滨',
-          y: 83.5,
-          z: 78.75
-        },
-        {
-          城市: '牡丹江',
-          网络基础设施就绪度: 90.31,
-          信息化发展环境: 110.32,
-          应用效益: 72.9,
-          产业信息化: 108.09,
-          发展指数: 91.75,
-          增长率: 39.81,
-          x: '牡丹江',
-          y: 90.31,
-          z: 72.9
-        },
-        {
-          城市: '绥化',
-          网络基础设施就绪度: 81.22,
-          信息化发展环境: 94.88,
-          应用效益: 74.24,
-          产业信息化: 59.69,
-          发展指数: 78.63,
-          增长率: 36.34,
-          x: '绥化',
-          y: 81.22,
-          z: 74.24
-        },
-        {
-          城市: '大庆',
-          网络基础设施就绪度: 73.33,
-          信息化发展环境: 106.61,
-          应用效益: 55.94,
-          产业信息化: 73.64,
-          发展指数: 74.81,
-          增长率: 35.04,
-          x: '大庆',
-          y: 73.33,
-          z: 55.94
-        },
-        {
-          城市: '佳木斯',
-          网络基础设施就绪度: 88.77,
-          信息化发展环境: 47.32,
-          应用效益: 68.39,
-          产业信息化: 84.78,
-          发展指数: 73.77,
-          增长率: 32.78,
-          x: '佳木斯',
-          y: 88.77,
-          z: 68.39
-        },
-        {
-          城市: '齐齐哈尔',
-          网络基础设施就绪度: 77.84,
-          信息化发展环境: 47.98,
-          应用效益: 56.55,
-          产业信息化: 86.03,
-          发展指数: 66.71,
-          增长率: 18.33,
-          x: '齐齐哈尔',
-          y: 77.84,
-          z: 56.55
-        }
-      ],
-      eXDate4: '',
-      eTitle4: '黑龙江省2015 - 2017发展指数',
-      // 右中第五个表格
-      eDate5: [
-        {
-          城市: '哈尔滨',
-          网络基础设施就绪度: 83.5,
-          信息化发展环境: 94.51,
-          应用效益: 78.75,
-          产业信息化: 141.25,
-          发展指数: 92.94,
-          增长率: 16.41,
-          x: '哈尔滨',
-          y: 83.5,
-          z: 78.75
-        },
-        {
-          城市: '牡丹江',
-          网络基础设施就绪度: 90.31,
-          信息化发展环境: 110.32,
-          应用效益: 72.9,
-          产业信息化: 108.09,
-          发展指数: 91.75,
-          增长率: 39.81,
-          x: '牡丹江',
-          y: 90.31,
-          z: 72.9
-        },
-        {
-          城市: '绥化',
-          网络基础设施就绪度: 81.22,
-          信息化发展环境: 94.88,
-          应用效益: 74.24,
-          产业信息化: 59.69,
-          发展指数: 78.63,
-          增长率: 36.34,
-          x: '绥化',
-          y: 81.22,
-          z: 74.24
-        },
-        {
-          城市: '大庆',
-          网络基础设施就绪度: 73.33,
-          信息化发展环境: 106.61,
-          应用效益: 55.94,
-          产业信息化: 73.64,
-          发展指数: 74.81,
-          增长率: 35.04,
-          x: '大庆',
-          y: 73.33,
-          z: 55.94
-        },
-        {
-          城市: '佳木斯',
-          网络基础设施就绪度: 88.77,
-          信息化发展环境: 47.32,
-          应用效益: 68.39,
-          产业信息化: 84.78,
-          发展指数: 73.77,
-          增长率: 32.78,
-          x: '佳木斯',
-          y: 88.77,
-          z: 68.39
-        },
-        {
-          城市: '齐齐哈尔',
-          网络基础设施就绪度: 77.84,
-          信息化发展环境: 47.98,
-          应用效益: 56.55,
-          产业信息化: 86.03,
-          发展指数: 66.71,
-          增长率: 18.33,
-          x: '齐齐哈尔',
-          y: 77.84,
-          z: 56.55
-        }
-      ],
-      eXDate5: '',
-      eTitle5: '黑龙江省2015 - 2017增长率',
-      // 右中第六个表格
-      eDate6: [
-        {
-          城市: '哈尔滨',
-          网络基础设施就绪度: 83.5,
-          信息化发展环境: 94.51,
-          应用效益: 78.75,
-          产业信息化: 141.25,
-          发展指数: 92.94,
-          增长率: 16.41,
-          x: '哈尔滨',
-          y: 83.5,
-          z: 78.75
-        },
-        {
-          城市: '牡丹江',
-          网络基础设施就绪度: 90.31,
-          信息化发展环境: 110.32,
-          应用效益: 72.9,
-          产业信息化: 108.09,
-          发展指数: 91.75,
-          增长率: 39.81,
-          x: '牡丹江',
-          y: 90.31,
-          z: 72.9
-        },
-        {
-          城市: '绥化',
-          网络基础设施就绪度: 81.22,
-          信息化发展环境: 94.88,
-          应用效益: 74.24,
-          产业信息化: 59.69,
-          发展指数: 78.63,
-          增长率: 36.34,
-          x: '绥化',
-          y: 81.22,
-          z: 74.24
-        },
-        {
-          城市: '大庆',
-          网络基础设施就绪度: 73.33,
-          信息化发展环境: 106.61,
-          应用效益: 55.94,
-          产业信息化: 73.64,
-          发展指数: 74.81,
-          增长率: 35.04,
-          x: '大庆',
-          y: 73.33,
-          z: 55.94
-        },
-        {
-          城市: '佳木斯',
-          网络基础设施就绪度: 88.77,
-          信息化发展环境: 47.32,
-          应用效益: 68.39,
-          产业信息化: 84.78,
-          发展指数: 73.77,
-          增长率: 32.78,
-          x: '佳木斯',
-          y: 88.77,
-          z: 68.39
-        },
-        {
-          城市: '齐齐哈尔',
-          网络基础设施就绪度: 77.84,
-          信息化发展环境: 47.98,
-          应用效益: 56.55,
-          产业信息化: 86.03,
-          发展指数: 66.71,
-          增长率: 18.33,
-          x: '齐齐哈尔',
-          y: 77.84,
-          z: 56.55
-        }
-      ],
-      eXDate6: '',
-      eTitle6: '黑龙江省2015 - 2017应用效益',
-      // 右中第七个表格
-      eDate7: [
-        {
-          城市: '哈尔滨',
-          网络基础设施就绪度: 83.5,
-          信息化发展环境: 94.51,
-          应用效益: 78.75,
-          产业信息化: 141.25,
-          发展指数: 92.94,
-          增长率: 16.41,
-          x: '哈尔滨',
-          y: 83.5,
-          z: 78.75
-        },
-        {
-          城市: '牡丹江',
-          网络基础设施就绪度: 90.31,
-          信息化发展环境: 110.32,
-          应用效益: 72.9,
-          产业信息化: 108.09,
-          发展指数: 91.75,
-          增长率: 39.81,
-          x: '牡丹江',
-          y: 90.31,
-          z: 72.9
-        },
-        {
-          城市: '绥化',
-          网络基础设施就绪度: 81.22,
-          信息化发展环境: 94.88,
-          应用效益: 74.24,
-          产业信息化: 59.69,
-          发展指数: 78.63,
-          增长率: 36.34,
-          x: '绥化',
-          y: 81.22,
-          z: 74.24
-        },
-        {
-          城市: '大庆',
-          网络基础设施就绪度: 73.33,
-          信息化发展环境: 106.61,
-          应用效益: 55.94,
-          产业信息化: 73.64,
-          发展指数: 74.81,
-          增长率: 35.04,
-          x: '大庆',
-          y: 73.33,
-          z: 55.94
-        },
-        {
-          城市: '佳木斯',
-          网络基础设施就绪度: 88.77,
-          信息化发展环境: 47.32,
-          应用效益: 68.39,
-          产业信息化: 84.78,
-          发展指数: 73.77,
-          增长率: 32.78,
-          x: '佳木斯',
-          y: 88.77,
-          z: 68.39
-        },
-        {
-          城市: '齐齐哈尔',
-          网络基础设施就绪度: 77.84,
-          信息化发展环境: 47.98,
-          应用效益: 56.55,
-          产业信息化: 86.03,
-          发展指数: 66.71,
-          增长率: 18.33,
-          x: '齐齐哈尔',
-          y: 77.84,
-          z: 56.55
-        }
-      ],
-      eXDate7: '',
-      eTitle7: '黑龙江省2015 - 2017网络基础设施就绪度'
+      // 刷新后的数据
+      resOption7: [],
+      // 判断组件是否显示
+      echartShow7: false,
+      buttonShow7: true
     }
   },
   watch: {
-    // 监听echarts表格数据变化
-    '$store.state.resDate' () {
-      this.eXDate = this.$store.state.resXDate
-      this.eTitle = this.$store.state.resTitle
-      this.eDate = this.$store.state.resDate.data
-      this.refreshTableDate()
+    '$store.state.resData' () {
+      this.resOption = this.$store.state.resData
     },
-    '$store.state.resDate2' () {
-      this.eXDate2 = this.$store.state.resXDate2
-      this.eTitle2 = this.$store.state.resTitle2
-      this.eDate2 = this.$store.state.resDate2.data
-      this.refreshTableDate2()
+    '$store.state.resData2' () {
+      this.resOption2 = this.$store.state.resData2
     },
-    '$store.state.resDate3' () {
-      this.eXDate3 = this.$store.state.resXDate3
-      this.eTitle3 = this.$store.state.resTitle3
-      this.eDate3 = this.$store.state.resDate3.data
-      this.refreshTableDate3()
+    '$store.state.resData3' () {
+      this.resOption3 = this.$store.state.resData3
     },
-    '$store.state.resDate4' () {
-      this.eXDate4 = this.$store.state.resXDate4
-      this.eTitle4 = this.$store.state.resTitle4
-      this.eDate4 = this.$store.state.resDate4.data
-      this.refreshTableDate4()
+    '$store.state.resData4' () {
+      this.resOption4 = this.$store.state.resData4
     },
-    '$store.state.resDate5' () {
-      this.eXDate5 = this.$store.state.resXDate5
-      this.eTitle5 = this.$store.state.resTitle5
-      this.eDate5 = this.$store.state.resDate5.data
-      this.refreshTableDate5()
+    '$store.state.resData5' () {
+      this.resOption5 = this.$store.state.resData5
     },
-    '$store.state.resDate6' () {
-      this.eXDate6 = this.$store.state.resXDate6
-      this.eTitle6 = this.$store.state.resTitle6
-      this.eDate6 = this.$store.state.resDate6.data
-      this.refreshTableDate6()
+    '$store.state.resData6' () {
+      this.resOption6 = this.$store.state.resData6
     },
-    '$store.state.resDate7' () {
-      this.eXDate7 = this.$store.state.resXDate7
-      this.eTitle7 = this.$store.state.resTitle7
-      this.eDate7 = this.$store.state.resDate3.data
-      this.refreshTableDate7()
+    '$store.state.resData7' () {
+      this.resOption7 = this.$store.state.resData7
     }
   },
   methods: {
-    // 渲染echarts
-    getTableData () {
-      // 用户柱状图
-      this.echartData.user.xData = this.eDate.map(item => item.城市)
-      this.echartData.user.series.push({
-        name: '网络基础设施就绪度',
-        data: this.eDate.map(item => item.网络基础设施就绪度),
-        type: 'bar',
-        barWidth: '20px'
-      })
+    renderInPage (form) {
+      this.echartShow1 = true
+      this.buttonShow1 = false
+      this.echartData.user.xData = this.resOption.map(item => item[renderData(this.resOption, 0, 0).key])
+      this.echartData.user.title.text = form.name
+      for (let i = 0; i < Object.keys(this.resOption[0]).length - 1; i++) {
+        this.echartData.user.series.splice(i, 1, {
+          name: renderData(this.resOption, 0, i + 1).key,
+          data: this.resOption.map(item => item[renderData(this.resOption, 0, i + 1).key]),
+          type: form.region,
+          barMaxWidth: '60%'
+        })
+      }
     },
-    // 获取新数据重新渲染echarts
-    refreshTableDate () {
-      console.log('刷新后渲染的数据：' + JSON.stringify(this.eDate))
-      console.log('刷新后渲染的数组：' + JSON.stringify(renderDate(this.eDate, 1, 1).key))
-      this.echartData.user.xData = this.eDate.map(item => item[this.eXDate])
-      this.echartData.user.series.splice(0, 1, {
-        name: renderDate(this.eDate, 1, 1).key,
-        data: this.eDate.map(item => item[renderDate(this.eDate, 1, 1).key]),
-        type: 'bar',
-        barWidth: '20px'
-      })
+    renderInPage2 (form) {
+      this.echartShow2 = true
+      this.buttonShow2 = false
+      this.echartData2.user.xData = this.resOption2.map(item => item[renderData(this.resOption2, 0, 0).key])
+      this.echartData2.user.title.text = form.name
+      for (let i = 0; i < Object.keys(this.resOption2[0]).length - 1; i++) {
+        this.echartData2.user.series.splice(i, 1, {
+          name: renderData(this.resOption2, 0, i + 1).key,
+          data: this.resOption2.map(item => item[renderData(this.resOption2, 0, i + 1).key]),
+          type: form.region,
+          barMaxWidth: '60%'
+        })
+      }
     },
-    getTableData2 () {
-      // 用户柱状图
-      this.echartData2.user.xData = this.eDate2.map(item => item.城市)
-      this.echartData2.user.series.push({
-        name: '信息化发展环境',
-        data: this.eDate2.map(item => item.信息化发展环境),
-        type: 'bar',
-        barWidth: '20px'
-      })
+    renderInPage3 (form) {
+      this.echartShow3 = true
+      this.buttonShow3 = false
+      this.echartData3.user.xData = this.resOption3.map(item => item[renderData(this.resOption3, 0, 0).key])
+      this.echartData3.user.title.text = form.name
+      for (let i = 0; i < Object.keys(this.resOption3[0]).length - 1; i++) {
+        this.echartData3.user.series.splice(i, 1, {
+          name: renderData(this.resOption3, 0, i + 1).key,
+          data: this.resOption3.map(item => item[renderData(this.resOption3, 0, i + 1).key]),
+          type: form.region,
+          barMaxWidth: '60%'
+        })
+      }
     },
-    // 获取新数据重新渲染echarts
-    refreshTableDate2 () {
-      this.echartData2.user.xData = this.eDate2.map(item => item[this.eXDate2])
-      this.echartData2.user.series.splice(0, 1, {
-        name: renderDate(this.eDate2, 1, 1).key,
-        data: this.eDate2.map(item => item[renderDate(this.eDate2, 1, 1).key]),
-        type: 'bar',
-        barWidth: '20px'
-      })
+    renderInPage4 (form) {
+      this.echartShow4 = true
+      this.buttonShow4 = false
+      this.echartData4.user.xData = this.resOption4.map(item => item[renderData(this.resOption4, 0, 0).key])
+      this.echartData4.user.title.text = form.name
+      for (let i = 0; i < Object.keys(this.resOption4[0]).length - 1; i++) {
+        this.echartData4.user.series.splice(i, 1, {
+          name: renderData(this.resOption4, 0, i + 1).key,
+          data: this.resOption4.map(item => item[renderData(this.resOption4, 0, i + 1).key]),
+          type: form.region,
+          barMaxWidth: '60%'
+        })
+      }
     },
-    getTableData3 () {
-      // 用户柱状图
-      this.echartData3.user.xData = this.eDate3.map(item => item.城市)
-      this.echartData3.user.series.push({
-        name: '信息化发展环境',
-        data: this.eDate3.map(item => item.信息化发展环境),
-        type: 'bar',
-        barWidth: '20px'
-      })
+    renderInPage5 (form) {
+      this.echartShow5 = true
+      this.buttonShow5 = false
+      this.echartData5.user.xData = this.resOption5.map(item => item[renderData(this.resOption5, 0, 0).key])
+      this.echartData5.user.title.text = form.name
+      for (let i = 0; i < Object.keys(this.resOption5[0]).length - 1; i++) {
+        this.echartData5.user.series.splice(i, 1, {
+          name: renderData(this.resOption5, 0, i + 1).key,
+          data: this.resOption5.map(item => item[renderData(this.resOption5, 0, i + 1).key]),
+          type: form.region,
+          barMaxWidth: '60%'
+        })
+      }
     },
-    // 获取新数据重新渲染echarts
-    refreshTableDate3 () {
-      console.log('第二次刷新后渲染的数据：' + JSON.stringify(this.eDate3))
-      console.log('第二次刷新后渲染的数组：' + JSON.stringify(renderDate(this.eDate3, 1, 1).key))
-      this.echartData3.user.xData = this.eDate3.map(item => item[this.eXDate3])
-      this.echartData3.user.series.splice(0, 1, {
-        name: renderDate(this.eDate3, 1, 1).key,
-        data: this.eDate3.map(item => item[renderDate(this.eDate3, 1, 1).key]),
-        type: 'bar',
-        barWidth: '20px'
-      })
+    renderInPage6 (form) {
+      this.echartShow6 = true
+      this.buttonShow6 = false
+      this.echartData6.user.xData = this.resOption6.map(item => item[renderData(this.resOption6, 0, 0).key])
+      this.echartData6.user.title.text = form.name
+      for (let i = 0; i < Object.keys(this.resOption6[0]).length - 1; i++) {
+        this.echartData6.user.series.splice(i, 1, {
+          name: renderData(this.resOption6, 0, i + 1).key,
+          data: this.resOption6.map(item => item[renderData(this.resOption6, 0, i + 1).key]),
+          type: form.region,
+          barMaxWidth: '60%'
+        })
+      }
     },
-    getTableData4 () {
-      // 用户柱状图
-      this.echartData4.user.xData = this.eDate4.map(item => item.城市)
-      this.echartData4.user.series.push({
-        name: '发展指数',
-        data: this.eDate4.map(item => item.发展指数),
-        type: 'bar',
-        barWidth: '20px'
-      })
-    },
-    // 获取新数据重新渲染echarts
-    refreshTableDate4 () {
-      this.echartData4.user.xData = this.eDate4.map(item => item[this.eXDate4])
-      this.echartData4.user.series.splice(0, 1, {
-        name: renderDate(this.eDate4, 1, 1).key,
-        data: this.eDate4.map(item => item[renderDate(this.eDate4, 1, 1).key]),
-        type: 'bar',
-        barWidth: '20px'
-      })
-    },
-    getTableData5 () {
-      // 用户柱状图
-      this.echartData5.user.xData = this.eDate5.map(item => item.城市)
-      this.echartData5.user.series.push({
-        name: '增长率',
-        data: this.eDate5.map(item => item.增长率),
-        type: 'bar',
-        barWidth: '20px'
-      })
-    },
-    // 获取新数据重新渲染echarts
-    refreshTableDate5 () {
-      this.echartData5.user.xData = this.eDate5.map(item => item[this.eXDate5])
-      this.echartData5.user.series.splice(0, 1, {
-        name: renderDate(this.eDate5, 1, 1).key,
-        data: this.eDate5.map(item => item[renderDate(this.eDate5, 1, 1).key]),
-        type: 'bar',
-        barWidth: '20px'
-      })
-    },
-    getTableData6 () {
-      // 用户柱状图
-      this.echartData6.user.xData = this.eDate6.map(item => item.城市)
-      this.echartData6.user.series.push({
-        name: '应用效益',
-        data: this.eDate6.map(item => item.应用效益),
-        type: 'bar',
-        barWidth: '20px'
-      })
-    },
-    // 获取新数据重新渲染echarts
-    refreshTableDate6 () {
-      this.echartData6.user.xData = this.eDate6.map(item => item[this.eXDate6])
-      this.echartData6.user.series.splice(0, 1, {
-        name: renderDate(this.eDate6, 1, 1).key,
-        data: this.eDate6.map(item => item[renderDate(this.eDate6, 1, 1).key]),
-        type: 'bar',
-        barWidth: '20px'
-      })
-    },
-    getTableData7 () {
-      // 用户柱状图
-      this.echartData7.user.xData = this.eDate7.map(item => item.城市)
-      this.echartData7.user.series.push({
-        name: '网络基础设施就绪度',
-        data: this.eDate7.map(item => item.网络基础设施就绪度),
-        type: 'bar',
-        barWidth: '20px'
-      })
-    },
-    // 获取新数据重新渲染echarts
-    refreshTableDate7 () {
-      this.echartData7.user.xData = this.eDate7.map(item => item[this.eXDate7])
-      this.echartData7.user.series.splice(0, 1, {
-        name: renderDate(this.eDate7, 1, 1).key,
-        data: this.eDate7.map(item => item[renderDate(this.eDate7, 1, 1).key]),
-        type: 'bar',
-        barWidth: '20px'
-      })
+    renderInPage7 (form) {
+      this.echartShow7 = true
+      this.buttonShow7 = false
+      this.echartData7.user.xData = this.resOption7.map(item => item[renderData(this.resOption7, 0, 0).key])
+      this.echartData7.user.title.text = form.name
+      for (let i = 0; i < Object.keys(this.resOption7[0]).length - 1; i++) {
+        this.echartData7.user.series.splice(i, 1, {
+          name: renderData(this.resOption7, 0, i + 1).key,
+          data: this.resOption7.map(item => item[renderData(this.resOption7, 0, i + 1).key]),
+          type: form.region,
+          barMaxWidth: '60%'
+        })
+      }
     }
-  },
-  mounted () {
-    this.getTableData()
-    this.getTableData2()
-    this.getTableData3()
-    this.getTableData4()
-    this.getTableData5()
-    this.getTableData6()
-    this.getTableData7()
   }
 }
 </script>
@@ -1008,7 +404,7 @@ export default {
     flex-direction: column;
     width:100%;
     height:100%;
-    background:url(../assets/img/bg.jpg) no-repeat;
+    background:url(../assets/img/bg.png) no-repeat;
     background-size:100% 100%;
   }
   .top{
@@ -1016,7 +412,7 @@ export default {
     width:100%;
     height:9%;
     font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
-    font-size: 30px;
+    font-size: 40px;
     align-items: center;
     justify-content: center;
     color: floralwhite;
@@ -1041,57 +437,57 @@ export default {
     display: flex;
     width:40%;
     height:100%;
-    background:url(../assets/img/ccent.png) no-repeat center;
-    background-size:98% 100%;
+    background:url(../assets/img/ccent.png) no-repeat;
+    background-size:100% 100%;
   }
   .contentElement3{
     display: flex;
     width:30%;
     height:100%;
     background:url(../assets/img/crigh.png) no-repeat;
-    background-size:92% 100%;
+    background-size:100% 100%;
   }
   .buttomElement1{
      display: flex;
      width:25%;
      height:100%;
-     background:url(../assets/img/b1.png) no-repeat right top;
-     background-size:92% 92%;
+     background:url(../assets/img/b1.png) no-repeat;
+     background-size:100% 100%;
    }
   .buttomElement2{
     display: flex;
     width:25%;
     height:100%;
-    background:url(../assets/img/b1.png) no-repeat center top;
-    background-size:100% 92%;
+    background:url(../assets/img/b1.png) no-repeat;
+    background-size:100% 100%;
   }
   .buttomElement3{
     display: flex;
     width:25%;
     height:100%;
-    background:url(../assets/img/b1.png) no-repeat center top;
-    background-size:100% 92%;
+    background:url(../assets/img/b1.png) no-repeat;
+    background-size:100% 100%;
   }
   .buttomElement4{
     display: flex;
     width:25%;
     height:100%;
     background:url(../assets/img/b1.png) no-repeat;
-    background-size:92% 92%;
+    background-size:100% 100%;
   }
   .contentElement1_1{
     display: flex;
     width:100%;
     height:50%;
-    background:url(../assets/img/cleft1.png) no-repeat right top;
-    background-size:92% 100%;
+    background:url(../assets/img/cleft1.png) no-repeat;
+    background-size:100% 100%;
   }
   .contentElement1_2{
     display: flex;
     width:100%;
     height:50%;
-    background:url(../assets/img/cleft2.png) no-repeat right top;
-    background-size:92% 100%;
+    background:url(../assets/img/cleft2.png) no-repeat;
+    background-size:100% 100%;
   }
   .echarts1{
     padding-left: 8%;
@@ -1120,7 +516,6 @@ export default {
     top:1%;
     margin-top:2%;
     z-index:999999999;
-
   }
   #bg{
     position: absolute;

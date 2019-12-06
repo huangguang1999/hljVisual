@@ -7,10 +7,11 @@ export function request (config) {
     params: {}, // URL参数
     baseURL: '', // url地址
     headers: {// 跨域请求头
-      'Access-Control-Request-Headers': '*'
+      'Access-Control-Request-Headers': '*',
+      'Conent-Type': 'UTF-8'
     },
     withCredentials: false, // 是否携带cookies
-    timeout: 30000 // 超时
+    timeout: 5000 // 超时
   })
   // 发送网络请求
   return instance(config)
