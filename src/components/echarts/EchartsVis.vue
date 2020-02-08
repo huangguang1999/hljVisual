@@ -86,14 +86,12 @@ export default {
                 let tdHeads = '<td  style="padding: 0 10px">时间</td>' // 表头
                 let tdBodys = '' // 数据
                 series.forEach(function (item) {
-			          // 组装表头
-                  tdHeads += `<td style="padding: 0 20px">${item.name}</td>`
+                  tdHeads += `<td style="padding: 0 20px">${item.name}</td>` // 组装表头
                 })
                 let table = `<table border="1" style="margin-left:20px;border-collapse:collapse;font-size:14px;text-align:center"><tbody><tr>${tdHeads} </tr>`
                 for (let i = 0, l = axisData.length; i < l; i++) {
                   for (let j = 0; j < series.length; j++) {
-			              // 组装表数据
-                    tdBodys += `<td>${series[j].data[i]}</td>`
+                    tdBodys += `<td>${series[j].data[i]}</td>` // 组装表数据
                   }
                   table += `<tr><td style="padding: 0 10px">${axisData[i]}</td>${tdBodys}</tr>`
                   tdBodys = ''
@@ -117,8 +115,8 @@ export default {
                 let chartMap = document.getElementById('aa')
                 let myChart = echarts.init(chartMap)
                 // myChart.getOption()获取当前图形的配置项option
-                console.log(myChart)
-                imgChart.setOption(myChart.getOption())
+                imgChart.setOption(myChart.getOption(), true)
+                console.log(imgChart)
                 // eslint-disable-next-line camelcase
                 var close_show = document.getElementById('close_show')
                 close_show.onclick = () => { // 关闭按钮触发
@@ -155,10 +153,7 @@ export default {
             }
           }
         ],
-        color: function (params) {
-          var colorList = ['#ffa31a', '#ffd480', '#ff8080', '#407fbf', '#7a7a52', '#ff6699', '#75a3a3', '#70dbdb', '#999999', '#00cc44', '#ffa31a', '#2d8659', '#d11aff']
-          return colorList[params.dataIndex]
-        },
+        color: ['#ffa31a', '#ffd480', '#ff8080', '#407fbf', '#7a7a52', '#ff6699', '#75a3a3', '#70dbdb', '#999999', '#00cc44', '#ffa31a', '#2d8659', '#d11aff'],
         series: []
       },
       normalOption: {
@@ -193,7 +188,9 @@ export default {
       }
     },
     resizeChart () {
-      this.echart ? this.echart.resize() : ''
+      if (this.echart) {
+        this.echart.resize()
+      }
     }
   },
   mounted () {

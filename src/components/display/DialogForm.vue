@@ -1,30 +1,34 @@
 <template>
-  <div style="width:100%;height:100%;display:flex;flex-direction:column;justify-content: center;align-items: center; ">
+  <div style="width:100%;height:100%;display:flex;flex-direction:column;justify-content: center;align-items: center ">
       <el-button type="primary" icon="edit" @click="dialogFormVisible = true">开始配置</el-button>
-      <el-dialog title="配置选项" :visible.sync="dialogFormVisible" style="width:100%;height:200%;">
+      <el-dialog title="配置选项" :visible.sync="dialogFormVisible" :top="0" style="padding:5px;" custom-class="dialogStyle">
           <div style="width:100%;height:20%;">
-              <el-form :model="form" style="display:flex">
-                  <el-form-item label="标题" :label-width="formLabelWidth">
-                      <!--<el-input v-model="form.name" type="text" @blur="displayData()" auto-complete="off"></el-input>-->
-                      <el-autocomplete
-                        v-model="state"
-                        :fetch-suggestions="querySearchAsync"
-                        placeholder="请输入内容"
-                        @select="handleSelect"
-                        @blur="displayData"
-                      ></el-autocomplete>
-                  </el-form-item>
-                  <el-form-item label="类型" :label-width="formLabelWidth">
-                      <el-select v-model="form.region" placeholder="请选择表格类型">
-                      <el-option label="柱状图" value="bar"></el-option>
-                      <el-option label="折线图" value="line"></el-option>
+              <el-form :model="form">
+                <el-form-item label="搜索内容">
+                  <el-autocomplete
+                    v-model="state"
+                    :fetch-suggestions="querySearchAsync"
+                    placeholder="请输入搜索内容"
+                    @select="handleSelect"
+                    @blur="displayData"
+                    style="width:90%"
+                  ></el-autocomplete>
+                </el-form-item>
+                <el-form-item label="表格类型">
+                  <el-select v-model="form.region" placeholder="请选择表格类型" style="width:90%" :disabled="selectController">
+                    <el-option label="柱状图" value="bar"></el-option>
+                    <el-option label="折线图" value="line"></el-option>
                   </el-select>
-              </el-form-item>
+                </el-form-item>
+                <el-form-item label="表格标题">
+                  <el-input v-model="echartsTitle" placeholder="请输入表格标题" style="width:90%"></el-input>
+                </el-form-item>
               </el-form>
           </div>
           <div style="width:100%;height:80%;display:flex">
             <div style="width:50%;height:80%;">
               <editableTable :list='list' :tableData="tableData"  ref="table"></editableTable>
+              <div></div>
             </div>
             <div style="width:50%;height:80%">
               <echartsDia :chartData="echartData.user" style="width:100%;height: 350%"></echartsDia>
@@ -40,10 +44,11 @@
 
 <script>
 import { request } from '../../axios/axios'
-import {renderData} from '../common/js/renderData'
+import {renderData} from '../../utils/renderData'
 import echartsDia from '../echarts/EchartsDia'
 import editableTable from '../editTable/EditableTable'
 import {editableTableMixins} from '../../mixins/EditableTable'
+import {debounce} from '@/utils/common.js'
 export default {
   components: {
     echartsDia,
@@ -56,7 +61,6 @@ export default {
         name: '',
         region: ''
       },
-      formLabelWidth: '120px',
       // ECharts表格数据
       echartData: {
         legend: {
@@ -79,6 +83,9 @@ export default {
       },
       // 刷新后的数据
       resOption: [],
+      // 选框数据
+      selectController: true,
+      echartsTitle: '',
       // 表格数据
       tabledatas: [],
       list: [],
@@ -114,9 +121,7 @@ export default {
   methods: {
     // 跟随input框显示数据
     displayData: function () {
-      if (this.state === '') {
-        this.alertMsg()
-      } else {
+      if (this.state !== '') {
         request({
           method: 'post',
           params: {data: this.state},
@@ -138,6 +143,7 @@ export default {
       }
     },
     refreshData: function () {
+      this.selectController = false
       this.$store.dispatch('refreshFun', this.resOption)
     },
     renderTable: function () {
@@ -191,14 +197,6 @@ export default {
         item.data = arr
       }
     },
-    // 发出警告方法
-    alertMsg () {
-      this.$notify({
-        title: '警告',
-        message: '选项不能为空',
-        type: 'warning'
-      })
-    },
     // 表格数据改变图表数据方法
     changeResOption (val) {
       console.log(val)
@@ -221,20 +219,19 @@ export default {
       }
     },
     // 索引方法
-    querySearchAsync (queryString, cb) {
+    querySearchAsync: debounce(function (queryString, cb) {
       var listInput = []
       if (this.state !== '') {
         request({
           method: 'get',
-          params: { key: this.state },
-          url: 'http://118.25.91.106:8080/main/getIndexes'
+          url: 'http://118.25.91.106:8080/v2/query/' + this.state
         })
           .then(res => {
-            console.log(res.data)
-            if (res.data[0].indexOf('Error') === -1) {
-              this.resIndex = res.data
+            console.log(res)
+            this.resIndex = Array.from(res.data.data)
+            if (this.resIndex[0].key.indexOf('Error') === -1) {
               for (let i = 0; i < this.resIndex.length; i++) {
-                listInput.push({'value': this.resIndex[i]})
+                listInput.push({'value': this.resIndex[i].key})
               }
               cb(listInput)
             }
@@ -243,7 +240,7 @@ export default {
             console.log(err)
           })
       }
-    },
+    }, 500),
     handleSelect (item) {
       this.displayData()
     }
@@ -251,5 +248,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.dialogStyle .el-dialog__header, .el-dialog__footer {
+  padding: 10px;
+}
+.dialogStyle  .el-dialog__body {
+  padding: 5px;
+}
+.dialogStyle .el-dialog__body .el-form-item {
+  margin-bottom: 5px;
+}
 </style>

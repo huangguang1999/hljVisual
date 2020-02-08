@@ -4,13 +4,14 @@
       <el-dialog title="配置选项" :visible.sync="dialogFormVisible" style="width:100%;height:200%;">
           <div style="width:100%;height:20%;">
               <el-form :model="form" style="display:flex">
-                  <el-form-item label="标题" :label-width="formLabelWidth">
+                  <el-form-item label="标题" :label-width="formLabelWidth1" width="70%">
                       <el-autocomplete
                         v-model="state"
                         :fetch-suggestions="querySearchAsync"
                         placeholder="请输入内容"
                         @select="handleSelect"
                         @blur="displayData"
+                        style="width:150%"
                       ></el-autocomplete>
                   </el-form-item>
                   <el-form-item label="类型" :label-width="formLabelWidth">
@@ -39,7 +40,7 @@
 
 <script>
 import { request } from '../../axios/axios'
-import {renderData} from '../common/js/renderData'
+import {renderData} from '../../utils/renderData'
 import echartsDia from '../echarts/EchartsDia'
 import editableTable from '../editTable/EditableTable'
 import {editableTableMixins} from '../../mixins/EditableTable'
@@ -55,7 +56,8 @@ export default {
         name: '',
         region: ''
       },
-      formLabelWidth: '120px',
+      formLabelWidth: '150px',
+      formLabelWidth1: '50px',
       // ECharts表格数据
       echartData: {
         legend: {
@@ -226,7 +228,7 @@ export default {
         request({
           method: 'get',
           params: { key: this.state },
-          url: 'http://118.25.91.106:8080/main/getIndexes'
+          url: 'http://118.25.91.106:8080/main/getNewIndexes'
         })
           .then(res => {
             console.log(res.data)

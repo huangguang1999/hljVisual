@@ -53,7 +53,7 @@ import DialogForm3 from '../components/display/DialogForm3'
 import DialogForm4 from '../components/display/DialogForm4'
 import DialogForm5 from '../components/display/DialogForm5'
 import DialogForm6 from '../components/display/DialogForm6'
-import {renderData} from '../components/common/js/renderData'
+import {renderData} from '../utils/renderData'
 export default {
   components: {
     Map,
@@ -388,7 +388,7 @@ export default {
     height:20px;
     cursor:pointer;
   }
-  .box {
+  .box [lazy="load"]{
     width: 100%;
     height: 100%;
     background: url(../assets/img/bg.png) left top no-repeat;

@@ -72,10 +72,7 @@ export default {
             }
           }
         ],
-        color: function (params) {
-          var colorList = ['#ffa31a', '#ffd480', '#ff8080', '#407fbf', '#7a7a52', '#ff6699', '#75a3a3', '#70dbdb', '#999999', '#00cc44', '#ffa31a', '#2d8659', '#d11aff']
-          return colorList[params.dataIndex]
-        },
+        color: ['#ffa31a', '#ffd480', '#ff8080', '#407fbf', '#7a7a52', '#ff6699', '#75a3a3', '#70dbdb', '#999999', '#00cc44', '#ffa31a', '#2d8659', '#d11aff'],
         series: []
       },
       normalOption: {

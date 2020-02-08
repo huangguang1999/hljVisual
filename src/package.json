@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "vue-server-renderer": "^2.6.10"
+  }
+}

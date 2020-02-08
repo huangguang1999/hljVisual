@@ -9,6 +9,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
 import store from './store'
 import Vuex from 'vuex'
+import mockdata from './mock'
+Vue.use(mockdata)
 Vue.use(Vuex)
 Vue.prototype.$ajax = axios
 Vue.prototype.$echarts = echarts

@@ -7,7 +7,7 @@
     <div id="mask"></div>
     <div id="show">
       <div id="bg"></div>
-      <span id="close_show">×</span>
+      <span id="closeShow">×</span>
       <div id="enlarge" style="width:100%;height:100%"></div>
     </div>
   </div>
@@ -68,9 +68,8 @@ export default {
                 imgChart.clear()
                 // myChart.getOption()获取当前图形的配置项option
                 imgChart.setOption(myChart.getOption())
-
-                var close_show = document.getElementById('close_show')
-                close_show.onclick = () => { // 关闭按钮触发
+                var closeShow = document.getElementById('closeShow')
+                closeShow.onclick = () => { // 关闭按钮触发
                   imgChart.clear()
                   mask.style.display = 'none'
                   show.style.display = 'none'
@@ -171,7 +170,7 @@ export default {
     -o-filter: blur(20px);
     filter: blur(35px);
   }
-  .show .close_show{
+  .show .closeShow{
     position:relative;
     left:49%;
     top:0%;
