@@ -1,40 +1,44 @@
 <template>
-  <div style="width:100%;height:100%;display:flex;flex-direction:column;justify-content: center;align-items: center; ">
-      <el-button type="primary" icon="edit" @click="dialogFormVisible = true">开始配置</el-button>
-      <el-dialog title="配置选项" :visible.sync="dialogFormVisible" style="width:100%;height:200%;">
-          <div style="width:100%;height:20%;">
-              <el-form :model="form" style="display:flex">
-                  <el-form-item label="标题" :label-width="formLabelWidth1" width="70%">
-                      <el-autocomplete
-                        v-model="state"
-                        :fetch-suggestions="querySearchAsync"
-                        placeholder="请输入内容"
-                        @select="handleSelect"
-                        @blur="displayData"
-                        style="width:150%"
-                      ></el-autocomplete>
-                  </el-form-item>
-                  <el-form-item label="类型" :label-width="formLabelWidth">
-                      <el-select v-model="form.region" placeholder="请选择表格类型">
-                      <el-option label="柱状图" value="bar"></el-option>
-                      <el-option label="折线图" value="line"></el-option>
-                  </el-select>
-              </el-form-item>
-              </el-form>
-          </div>
-          <div style="width:100%;height:80%;display:flex">
-            <div style="width:50%;height:80%;">
-              <editableTable :list='list' :tableData="tableData"  ref="table"></editableTable>
-            </div>
-            <div style="width:50%;height:80%">
-              <echartsDia :chartData="echartData.user" style="width:100%;height: 350%"></echartsDia>
-            </div>
-          </div>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="sendDFV">保存配置</el-button>
-          </div>
-      </el-dialog>
+  <div style="width:100%;height:100%;display:flex;flex-direction:column;justify-content: center;align-items: center ">
+    <el-button type="primary" icon="edit" @click="dialogFormVisible = true">开始配置</el-button>
+    <el-dialog title="配置选项" :visible.sync="dialogFormVisible" :top="0" style="padding:5px;" custom-class="dialogStyle">
+      <div style="width:100%;height:20%;">
+        <el-form :model="form">
+          <el-form-item label="搜索内容">
+            <el-autocomplete
+              v-model="state"
+              :fetch-suggestions="querySearchAsync"
+              placeholder="请输入搜索内容"
+              @select="handleSelect"
+              @blur="displayData"
+              style="width:90%"
+            ></el-autocomplete>
+          </el-form-item>
+          <el-form-item label="表格类型">
+            <el-select v-model="form.region" placeholder="请选择表格类型" style="width:90%" :disabled="selectController">
+              <el-option label="柱状图" value="bar"></el-option>
+              <el-option label="折线图" value="line"></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="表格标题">
+            <el-input v-model="echartsTitle" placeholder="请输入表格标题" style="width:90%"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div style="width:100%;height:80%;display:flex">
+        <div style="width:50%;height:80%;">
+          <editableTable :list='list' :tableData="tableData"  ref="table"></editableTable>
+          <div></div>
+        </div>
+        <div style="width:50%;height:80%">
+          <echartsDia :chartData="echartData.user" style="width:100%;height: 350%"></echartsDia>
+        </div>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="sendDFV">保存配置</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -44,6 +48,8 @@ import {renderData} from '../../utils/renderData'
 import echartsDia from '../echarts/EchartsDia'
 import editableTable from '../editTable/EditableTable'
 import {editableTableMixins} from '../../mixins/EditableTable'
+import {renderTableData, renderTableList} from '../../utils/render'
+import {debounce} from '@/utils/common.js'
 export default {
   components: {
     echartsDia,
@@ -95,19 +101,23 @@ export default {
   watch: {
     // 监听全局echarts表格数据变化
     '$store.state.resData2' () {
-      if (this.resOption[0] !== 'Error') {
-        this.renderTable()
+      if (this.resOption[0].length > 0) {
+        if (this.resOption) {
+          this.list = []
+          this.tableData = []
+          this.list = renderTableList(this.resOption)
+          this.tableData = renderTableData(this.resOption)
+        }
       }
     },
     // 监听选择类型下拉框
     'form.region' () {
-      this.renderEcharts()
+      this.renderECharts()
     },
     // 监听表格数据的变化
     '$store.state.tableData': {
       handler () {
         this.refreshTableData(this.$store.state.tableData)
-        this.changeResOption(this.$store.state.tableData)
       },
       deep: true
     }
@@ -115,22 +125,21 @@ export default {
   methods: {
     // 跟随input框显示数据
     displayData: function () {
-      if (this.state === '') {
-        this.alertMsg()
-      } else {
+      if (this.state !== '') {
         request({
-          method: 'post',
-          params: {data: this.state},
-          url: 'http://118.25.91.106:8080/main/postKeys'
+          method: 'get',
+          url: 'http://39.106.10.108:8080/v3/querySourceData/' + this.state
         })
           .then(res => {
-            console.log('发送成功;数据是：' + JSON.stringify(res.data))
             // 显示数据
-            this.resOption = res.data
-            this.refreshData()
-            // 改变标题时重新渲染数据
-            if (this.form.region !== '' && this.resOption[0] !== 'Error') {
-              this.renderEcharts()
+            console.log(res.data)
+            if (res.data.length > 0) {
+              this.resOption = res.data[0][1].value
+              this.refreshData()
+              // 改变标题时重新渲染数据
+              if (this.form.region !== '' && this.resOption > 0) {
+                this.renderECharts()
+              }
             }
           })
           .catch(err => {
@@ -139,33 +148,15 @@ export default {
       }
     },
     refreshData: function () {
+      this.selectController = false
       this.$store.dispatch('refreshFun2', this.resOption)
     },
-    renderTable: function () {
-      this.list = []
-      this.tableData = []
-      let arr = Object.keys(this.resOption[0])
-      for (let i = 0; i < arr.length; i++) {
-        this.list.push(
-          // eslint-disable-next-line standard/object-curly-even-spacing
-          { label: renderData(this.resOption, 0, i).key, width: '', placeholder: '请输入内容', type: 'text', model: 'data' + i}
-        )
-      }
-      for (let i = 0; i < this.resOption.length; i++) {
-        let obj = {}
-        for (let j = 0; j < arr.length; j++) {
-          // eslint-disable-next-line no-eval
-          eval('obj.data' + j + "='" + renderData(this.resOption, i, j).value + "'")
-        }
-        this.tableData.push(obj)
-      }
-    },
-    renderEcharts: function () {
+    renderECharts: function () {
       this.echartData.user.series = []
       this.echartData.user.xData = this.resOption.map(item => item[renderData(this.resOption, 0, 0).key])
-      for (let i = 0; i < Object.keys(this.resOption[0]).length - 1; i++) {
+      for (let i = 0; i < this.resOption[0].length - 1; i++) {
         this.echartData.user.series.splice(i, 1, {
-          name: renderData(this.resOption, 0, i + 1).key,
+          name: renderData(this.resOption, 0, i + 1).value.key,
           data: this.resOption.map(item => item[renderData(this.resOption, 0, i + 1).key]),
           type: this.form.region,
           barMaxWidth: '60%'
@@ -179,64 +170,26 @@ export default {
     },
     // 表格数据刷新渲染图表
     refreshTableData: function (value) {
-      this.echartData.user.xData = []
-      for (let i = 0; i < value.length; i++) {
-        this.echartData.user.xData.push(value[i].data0)
-      }
-      for (let i = 0; i < Object.keys(value[0]).length - 1; i++) {
-        var item = this.echartData.user.series[i]
-        let arr = []
-        for (let j = 0; j < value.length; j++) {
-          arr.push(value[j]['data' + (i + 1)] - 0)
+      for (let i = 0; i < value.length - 1; i++) {
+        for (let j = 0; j < Object.keys(value[0]).length - 1; j++) {
+          this.echartData.user.series[i].data[j].value = value[i]['data' + j]
         }
-        item.data = arr
-      }
-    },
-    // 发出警告方法
-    alertMsg () {
-      this.$notify({
-        title: '警告',
-        message: '选项不能为空',
-        type: 'warning'
-      })
-    },
-    // 表格数据改变图表数据方法
-    changeResOption (val) {
-      console.log(val)
-      console.log(this.resOption)
-      for (let i = 0; i < Object.keys(val[0]).length - 1; i++) {
-        for (let j = 0; j < val.length; j++) {
-          this.renderObj(this.resOption[j], i + 1, val[j]['data' + (i + 1)] - 0)
-        }
-      }
-      console.log(this.resOption)
-    },
-    // 改变带中文字符的对象属性值
-    renderObj (obj, row, data) {
-      var p = 0
-      for (var i in obj) {
-        if (p === row) {
-          obj[i] = data
-        }
-        p++
       }
     },
     // 索引方法
-    querySearchAsync (queryString, cb) {
-      var listInput = []
+    querySearchAsync: debounce(function (queryString, cb) {
+      let listInput = []
       if (this.state !== '') {
         request({
           method: 'get',
-          params: { key: this.state },
-          url: 'http://118.25.91.106:8080/main/getNewIndexes'
+          url: 'http://39.106.10.108:8080/v3/querySourceName/' + this.state + '/1/50'
         })
           .then(res => {
-            console.log(res.data)
-            if (res.data[0].indexOf('Error') === -1) {
-              this.resIndex = res.data
-              for (let i = 0; i < this.resIndex.length; i++) {
-                listInput.push({'value': this.resIndex[i]})
-              }
+            let resArr = res.data
+            if (resArr.length > 0) {
+              resArr.forEach(item => {
+                listInput.push({'value': item[0].value})
+              })
               cb(listInput)
             }
           })
@@ -244,7 +197,7 @@ export default {
             console.log(err)
           })
       }
-    },
+    }, 500),
     handleSelect (item) {
       this.displayData()
     }

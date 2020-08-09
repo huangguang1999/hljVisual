@@ -49,6 +49,7 @@ import echartsDia from '../echarts/EchartsDia'
 import editableTable from '../editTable/EditableTable'
 import {editableTableMixins} from '../../mixins/EditableTable'
 import {debounce} from '@/utils/common.js'
+import {renderTableData, renderTableList} from '../../utils/render'
 export default {
   components: {
     echartsDia,
@@ -87,7 +88,6 @@ export default {
       selectController: true,
       echartsTitle: '',
       // 表格数据
-      tabledatas: [],
       list: [],
       tableData: [],
       // 索引数据
@@ -101,19 +101,21 @@ export default {
   watch: {
     // 监听全局echarts表格数据变化
     '$store.state.resData' () {
-      if (this.resOption[0] !== 'Error') {
-        this.renderTable()
+      if (this.resOption.length > 0) {
+        this.list = []
+        this.tableData = []
+        this.list = renderTableList(this.resOption)
+        this.tableData = renderTableData(this.resOption)
       }
     },
     // 监听选择类型下拉框
     'form.region' () {
-      this.renderEcharts()
+      this.renderECharts()
     },
     // 监听表格数据的变化
     '$store.state.tableData': {
       handler () {
         this.refreshTableData(this.$store.state.tableData)
-        this.changeResOption(this.$store.state.tableData)
       },
       deep: true
     }
@@ -123,18 +125,18 @@ export default {
     displayData: function () {
       if (this.state !== '') {
         request({
-          method: 'post',
-          params: {data: this.state},
-          url: 'http://118.25.91.106:8080/main/postKeys'
+          method: 'get',
+          url: 'http://39.106.10.108:8080/v3/querySourceData/' + this.state
         })
           .then(res => {
-            console.log('发送成功;数据是：' + JSON.stringify(res.data))
             // 显示数据
-            this.resOption = res.data
-            this.refreshData()
-            // 改变标题时重新渲染数据
-            if (this.form.region !== '' && this.resOption[0] !== 'Error') {
-              this.renderEcharts()
+            if (res.data.length > 0) {
+              this.resOption = res.data[0][1].value
+              this.refreshData()
+              // 改变标题时重新渲染数据
+              if (this.form.region !== '' && this.resOption > 0) {
+                this.renderECharts()
+              }
             }
           })
           .catch(err => {
@@ -146,31 +148,12 @@ export default {
       this.selectController = false
       this.$store.dispatch('refreshFun', this.resOption)
     },
-    renderTable: function () {
-      this.list = []
-      this.tableData = []
-      let arr = Object.keys(this.resOption[0])
-      for (let i = 0; i < arr.length; i++) {
-        this.list.push(
-          // eslint-disable-next-line standard/object-curly-even-spacing
-          { label: renderData(this.resOption, 0, i).key, width: '', placeholder: '请输入内容', type: 'text', model: 'data' + i}
-        )
-      }
-      for (let i = 0; i < this.resOption.length; i++) {
-        let obj = {}
-        for (let j = 0; j < arr.length; j++) {
-          // eslint-disable-next-line no-eval
-          eval('obj.data' + j + "='" + renderData(this.resOption, i, j).value + "'")
-        }
-        this.tableData.push(obj)
-      }
-    },
-    renderEcharts: function () {
+    renderECharts: function () {
       this.echartData.user.series = []
       this.echartData.user.xData = this.resOption.map(item => item[renderData(this.resOption, 0, 0).key])
-      for (let i = 0; i < Object.keys(this.resOption[0]).length - 1; i++) {
+      for (let i = 0; i < this.resOption[0].length - 1; i++) {
         this.echartData.user.series.splice(i, 1, {
-          name: renderData(this.resOption, 0, i + 1).key,
+          name: renderData(this.resOption, 0, i + 1).value.key,
           data: this.resOption.map(item => item[renderData(this.resOption, 0, i + 1).key]),
           type: this.form.region,
           barMaxWidth: '60%'
@@ -184,55 +167,26 @@ export default {
     },
     // 表格数据刷新渲染图表
     refreshTableData: function (value) {
-      this.echartData.user.xData = []
-      for (let i = 0; i < value.length; i++) {
-        this.echartData.user.xData.push(value[i].data0)
-      }
-      for (let i = 0; i < Object.keys(value[0]).length - 1; i++) {
-        var item = this.echartData.user.series[i]
-        let arr = []
-        for (let j = 0; j < value.length; j++) {
-          arr.push(value[j]['data' + (i + 1)] - 0)
+      for (let i = 0; i < value.length - 1; i++) {
+        for (let j = 0; j < Object.keys(value[0]).length - 1; j++) {
+          this.echartData.user.series[i].data[j].value = value[i]['data' + j]
         }
-        item.data = arr
-      }
-    },
-    // 表格数据改变图表数据方法
-    changeResOption (val) {
-      console.log(val)
-      console.log(this.resOption)
-      for (let i = 0; i < Object.keys(val[0]).length - 1; i++) {
-        for (let j = 0; j < val.length; j++) {
-          this.renderObj(this.resOption[j], i + 1, val[j]['data' + (i + 1)] - 0)
-        }
-      }
-      console.log(this.resOption)
-    },
-    // 改变带中文字符的对象属性值
-    renderObj (obj, row, data) {
-      var p = 0
-      for (var i in obj) {
-        if (p === row) {
-          obj[i] = data
-        }
-        p++
       }
     },
     // 索引方法
     querySearchAsync: debounce(function (queryString, cb) {
-      var listInput = []
+      let listInput = []
       if (this.state !== '') {
         request({
           method: 'get',
-          url: 'http://118.25.91.106:8080/v2/query/' + this.state
+          url: 'http://39.106.10.108:8080/v3/querySourceName/' + this.state + '/1/50'
         })
           .then(res => {
-            console.log(res)
-            this.resIndex = Array.from(res.data.data)
-            if (this.resIndex[0].key.indexOf('Error') === -1) {
-              for (let i = 0; i < this.resIndex.length; i++) {
-                listInput.push({'value': this.resIndex[i].key})
-              }
+            let resArr = res.data
+            if (resArr.length > 0) {
+              resArr.forEach(item => {
+                listInput.push({'value': item[0].value})
+              })
               cb(listInput)
             }
           })

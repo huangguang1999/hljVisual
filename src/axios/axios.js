@@ -36,7 +36,7 @@ export function request (config) {
     baseURL: '', // url地址
     headers: {// 跨域请求头
       'Access-Control-Request-Headers': '*',
-      'Conent-Type': 'UTF-8'
+      'Conent-Type': 'text/html;charset=utf-8'
     },
     withCredentials: false, // 是否携带cookies
     timeout: 10000 // 超时

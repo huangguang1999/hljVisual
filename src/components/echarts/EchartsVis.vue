@@ -64,7 +64,15 @@ export default {
           bottom: '10%'
         },
         tooltip: {
-          trigger: 'axis'
+          trigger: 'axis',
+          formatter (params) {
+            let result = ''
+            for (let i = 0; i < params.length; i++) {
+              let item = params[i]
+              result += `${item.data.key}:${item.data.value}<br>`
+            }
+            return result
+          }
         },
         toolbox: {
           show: true,
@@ -83,17 +91,17 @@ export default {
               optionToContent: function (opt) {
                 let axisData = opt.xAxis[0].data // 坐标数据
                 let series = opt.series // 折线图数据
-                let tdHeads = '<td  style="padding: 0 10px">时间</td>' // 表头
+                let tdHeads = '<td  style="padding: 0 10px">地区</td>' // 表头
                 let tdBodys = '' // 数据
                 series.forEach(function (item) {
-                  tdHeads += `<td style="padding: 0 20px">${item.name}</td>` // 组装表头
+                  tdHeads += `<td style="padding: 0 20px">${item.data[0].key}</td>` // 组装表头
                 })
                 let table = `<table border="1" style="margin-left:20px;border-collapse:collapse;font-size:14px;text-align:center"><tbody><tr>${tdHeads} </tr>`
                 for (let i = 0, l = axisData.length; i < l; i++) {
                   for (let j = 0; j < series.length; j++) {
-                    tdBodys += `<td>${series[j].data[i]}</td>` // 组装表数据
+                    tdBodys += `<td>${series[j].data[i].value}</td>` // 组装表数据
                   }
-                  table += `<tr><td style="padding: 0 10px">${axisData[i]}</td>${tdBodys}</tr>`
+                  table += `<tr><td style="padding: 0 10px">${axisData[i].value}</td>${tdBodys}</tr>`
                   tdBodys = ''
                 }
                 table += '</tbody></table>'

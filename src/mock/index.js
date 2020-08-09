@@ -1,19 +1,34 @@
 // 引入mockjs
-import Mock from 'mockjs'
+const Mock = require('mockjs')
 
 // 创建拦截请求
-const search = Mock.mock(
-  'http://118.25.91.106:8080/v2/query/2', 'get', (req, res) => {
-    return {
-      code: 200,
-      data: [
-        {
-          key: '2017年中心型城市服务业信息化',
-          value: '77.73'
-        }
-      ]
-    }
-  })
-export default{
-  search
+const produceSearchData = function () {
+  return [
+    [
+      {
+        'key': 'dataName',
+        'value': '2018年中心型城市指标数据'
+      }
+    ],
+    [
+      {
+        'key': 'dataName',
+        'value': '2018年煤城型城市指标数据'
+      }
+    ],
+    [
+      {
+        'key': 'dataName',
+        'value': '2018年生态型城市指标数据'
+      }
+    ],
+    [
+      {
+        'key': 'dataName',
+        'value': '2018年黑龙江省各市指标数据'
+      }
+    ]
+  ]
 }
+
+Mock.mock('/mock/searchData', produceSearchData)

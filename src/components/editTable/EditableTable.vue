@@ -1,9 +1,8 @@
 <!--
   desc：可编辑表格公共组件
-  author：liubo
 -->
 <template>
-    <div class='' style="width:100%;height:300px;overflow:auto">
+    <div style="width:100%;height:300px;overflow:auto">
         <el-col class="table-show-handle">
             <!--<el-button @click="handldAdd"    type="primary" plain size="mini">新增</el-button>-->
             <el-button @click="setCurrent"   type="primary" plain size="mini">保存</el-button>

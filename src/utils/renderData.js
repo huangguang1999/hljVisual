@@ -8,6 +8,6 @@ function renderData (arr, row, col) {
     }
     p++
   }
-  return ' '
+  return ''
 }
 export {renderData}
